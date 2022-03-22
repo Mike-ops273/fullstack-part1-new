@@ -1,28 +1,32 @@
 import { useState } from "react";
 
+//app component
 const App = () => {
-  const [counter, setCounter] = useState(0);
+  const [value, setValue] = useState(10);
 
-  const increaseByOne = () => setCounter(counter + 1);
-  const decreaseByOne = () => setCounter(counter - 1);
-  const setToZero = () => setCounter(0);
+  const setToValue = (newValue) => {
+    console.log("value now", newValue);
+    setValue(newValue);
+  };
+
+  // Do not define a component inside another component
+  //const Display = (props) => <div>{props.value}</div>;
 
   return (
     <div>
-      <Display counter={counter} />
-      <Button onClick={increaseByOne} text="plus" />
-      <Button onClick={setToZero} text="zero" />
-      <Button onClick={decreaseByOne} text="minus" />
+      <Display value={value} />
+      <Button handleClick={() => setToValue(1000)} text="thousand" />
+      <Button handleClick={() => setToValue(0)} text="reset" />
+      <Button handleClick={() => setToValue(value + 1)} text="increment" />
     </div>
   );
 };
 
-const Display = (props) => {
-  return <div>{props.counter}</div>;
-};
+//components
+const Display = (props) => <div>{props.value}</div>;
 
-const Button = (props) => {
-  return <button onClick={props.onClick}>{props.text}</button>;
-};
+const Button = (props) => (
+  <button onClick={props.handleClick}>{props.text}</button>
+);
 
 export default App;
