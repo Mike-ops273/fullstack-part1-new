@@ -7,18 +7,21 @@ const App = () => {
   const [bad, setBad] = useState(0);
 
   const increaseGood = (good) => {
-    console.log("the good", good);
     setGood(good);
   };
   const increaseNeutral = (neutral) => {
-    console.log("the neutral", neutral);
     setNeutral(neutral);
   };
   const increaseBad = (bad) => {
-    console.log("the bad", bad);
-    // setBad(bad + 1); this does not work, do addition in return
     setBad(bad);
   };
+  let submissions;
+  submissions = good + neutral + bad;
+  console.log("submissions:", submissions);
+  let average;
+  let total = good - bad;
+  average = total / submissions;
+  let percentage = (good / submissions) * 100;
 
   return (
     <div>
@@ -30,6 +33,9 @@ const App = () => {
       <Display display={good} text="good" />
       <Display display={neutral} text="neutral" />
       <Display display={bad} text="bad" />
+      <Submissions total={submissions} />
+      <Average average={average} />
+      <Percentage percentage={percentage} />
     </div>
   );
 };
@@ -37,11 +43,15 @@ const App = () => {
 const Button = (props) => (
   <button onClick={props.handleClick}>{props.text}</button>
 );
-
 const Display = (props) => (
   <div>
     {props.text} {props.display}
   </div>
 );
+const Submissions = (props) => <div>all {props.total}</div>;
+
+const Average = (props) => <div>average {props.average}</div>;
+
+const Percentage = (props) => <div>positives {props.percentage}%</div>;
 
 export default App;
