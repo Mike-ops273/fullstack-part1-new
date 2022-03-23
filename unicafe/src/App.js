@@ -15,13 +15,21 @@ const App = () => {
   const increaseBad = (bad) => {
     setBad(bad);
   };
+
   let submissions;
   submissions = good + neutral + bad;
-  console.log("submissions:", submissions);
   let average;
   let total = good - bad;
   average = total / submissions;
   let percentage = (good / submissions) * 100;
+
+  //store statistical data in object
+  const statsObject = {
+    objectSubmissions: good + neutral + bad,
+    objectAverage: average,
+    objectTotal: total,
+    objectPercentage: percentage,
+  };
 
   return (
     <div>
@@ -33,9 +41,8 @@ const App = () => {
       <Display display={good} text="good" />
       <Display display={neutral} text="neutral" />
       <Display display={bad} text="bad" />
-      <Statistics statistics={submissions} text="all" />
-      <Statistics statistics={average} text="average" />
-      <Statistics statistics={percentage} text="positives" text2="%" />
+      {console.log(statsObject)}
+      <Statistics statsObject={statsObject} />
     </div>
   );
 };
@@ -49,16 +56,20 @@ const Display = (props) => (
   </div>
 );
 
-/*
-const Submissions = (props) => <div>all {props.total}</div>;
-const Average = (props) => <div>average {props.average}</div>;
-const Percentage = (props) => <div>positives {props.percentage}%</div>;
-*/
-
 const Statistics = (props) => {
+  console.log("outside return statement:", props.statsObject.objectSubmissions);
+  if (props.statsObject.objectSubmissions === 0) {
+    return <div>no data</div>;
+  }
   return (
     <div>
-      {props.text} {props.statistics} {props.text2}
+      {console.log(
+        "inside return statement:",
+        props.statsObject.objectSubmissions
+      )}
+      all {props.statsObject.objectSubmissions} <br />
+      average {props.statsObject.objectAverage} <br />
+      positive {props.statsObject.objectPercentage} % <br />
     </div>
   );
 };
