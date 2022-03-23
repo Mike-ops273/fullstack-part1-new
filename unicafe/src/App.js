@@ -33,9 +33,9 @@ const App = () => {
       <Display display={good} text="good" />
       <Display display={neutral} text="neutral" />
       <Display display={bad} text="bad" />
-      <Submissions total={submissions} />
-      <Average average={average} />
-      <Percentage percentage={percentage} />
+      <Statistics statistics={submissions} text="all" />
+      <Statistics statistics={average} text="average" />
+      <Statistics statistics={percentage} text="positives" text2="%" />
     </div>
   );
 };
@@ -48,10 +48,19 @@ const Display = (props) => (
     {props.text} {props.display}
   </div>
 );
+
+/*
 const Submissions = (props) => <div>all {props.total}</div>;
-
 const Average = (props) => <div>average {props.average}</div>;
-
 const Percentage = (props) => <div>positives {props.percentage}%</div>;
+*/
+
+const Statistics = (props) => {
+  return (
+    <div>
+      {props.text} {props.statistics} {props.text2}
+    </div>
+  );
+};
 
 export default App;
