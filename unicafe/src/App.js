@@ -25,6 +25,9 @@ const App = () => {
 
   //store statistical data in object
   const statsObject = {
+    good: good,
+    neutral: neutral,
+    bad: bad,
     objectSubmissions: good + neutral + bad,
     objectAverage: average,
     objectTotal: total,
@@ -38,11 +41,20 @@ const App = () => {
       <Button handleClick={() => increaseNeutral(neutral + 1)} text="neutral" />
       <Button handleClick={() => increaseBad(bad + 1)} text="bad" />
       <h2>Statistics</h2>
-      <Display display={good} text="good" />
-      <Display display={neutral} text="neutral" />
-      <Display display={bad} text="bad" />
-      {console.log(statsObject)}
-      <Statistics statsObject={statsObject} />
+      <StatisticsLine text="good" value={good} />
+      <StatisticsLine text="neutral" value={neutral} />
+      <StatisticsLine text="bad" value={bad} />
+      <StatisticsLine text="all" value={statsObject.objectSubmissions} />
+      <StatisticsLine text="average" value={statsObject.objectAverage} />
+      <StatisticsLine text="positive" value={statsObject.objectPercentage} />
+    </div>
+  );
+};
+
+const StatisticsLine = (props) => {
+  return (
+    <div>
+      {props.text} {props.value}
     </div>
   );
 };
@@ -50,28 +62,5 @@ const App = () => {
 const Button = (props) => (
   <button onClick={props.handleClick}>{props.text}</button>
 );
-const Display = (props) => (
-  <div>
-    {props.text} {props.display}
-  </div>
-);
-
-const Statistics = (props) => {
-  console.log("outside return statement:", props.statsObject.objectSubmissions);
-  if (props.statsObject.objectSubmissions === 0) {
-    return <div>no data</div>;
-  }
-  return (
-    <div>
-      {console.log(
-        "inside return statement:",
-        props.statsObject.objectSubmissions
-      )}
-      all {props.statsObject.objectSubmissions} <br />
-      average {props.statsObject.objectAverage} <br />
-      positive {props.statsObject.objectPercentage} % <br />
-    </div>
-  );
-};
 
 export default App;
