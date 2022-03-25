@@ -6,14 +6,14 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const increaseGood = (good) => {
-    setGood(good);
+  const increaseGood = () => {
+    setGood(good + 1);
   };
-  const increaseNeutral = (neutral) => {
-    setNeutral(neutral);
+  const increaseNeutral = () => {
+    setNeutral(neutral + 1);
   };
-  const increaseBad = (bad) => {
-    setBad(bad);
+  const increaseBad = () => {
+    setBad(bad + 1);
   };
 
   let submissions;
@@ -23,7 +23,7 @@ const App = () => {
   average = total / submissions;
   let percentage = (good / submissions) * 100;
 
-  //store statistical data in object
+  //store all statistical data in object
   const statsObject = {
     good: good,
     neutral: neutral,
@@ -37,24 +37,13 @@ const App = () => {
   return (
     <div>
       <h1>Give feedback</h1>
-      <Button handleClick={() => increaseGood(good + 1)} text="good" />
-      <Button handleClick={() => increaseNeutral(neutral + 1)} text="neutral" />
-      <Button handleClick={() => increaseBad(bad + 1)} text="bad" />
+      <Button handleClick={() => increaseGood()} text="good" />
+      <Button handleClick={() => increaseNeutral()} text="neutral" />
+      <Button handleClick={() => increaseBad()} text="bad" />
       <h2>Statistics</h2>
-      <StatisticsLine text="good" value={good} />
-      <StatisticsLine text="neutral" value={neutral} />
-      <StatisticsLine text="bad" value={bad} />
-      <StatisticsLine text="all" value={statsObject.objectSubmissions} />
-      <StatisticsLine text="average" value={statsObject.objectAverage} />
-      <StatisticsLine text="positive" value={statsObject.objectPercentage} />
-    </div>
-  );
-};
-
-const StatisticsLine = (props) => {
-  return (
-    <div>
-      {props.text} {props.value}
+      {console.log(statsObject)}
+      <br />
+      <Statistics statsObject={statsObject} />
     </div>
   );
 };
@@ -62,5 +51,47 @@ const StatisticsLine = (props) => {
 const Button = (props) => (
   <button onClick={props.handleClick}>{props.text}</button>
 );
+
+const Statistics = (props) => {
+  /// if no feedback render this:
+  if (props.statsObject.objectSubmissions === 0) {
+    return (
+      <div>
+        {console.log(
+          props.statsObject.good,
+          props.statsObject.neutral,
+          props.statsObject.bad
+        )}
+        <StatisticLine text="good" value={props.statsObject.good} />
+        <StatisticLine text="neutral" value={props.statsObject.neutral} />
+        <StatisticLine text="bad" value={props.statsObject.bad} />
+        no data given
+      </div>
+    );
+  } //else
+  return (
+    <div>
+      {console.log("in else statement")}
+      <StatisticLine text="good" value={props.statsObject.good} />
+      <StatisticLine text="neutral" value={props.statsObject.neutral} />
+      <StatisticLine text="bad" value={props.statsObject.bad} />
+      <StatisticLine text="all" value={props.statsObject.objectSubmissions} />
+      <StatisticLine text="average" value={props.statsObject.objectAverage} />
+      <StatisticLine
+        text="positive"
+        value={props.statsObject.objectPercentage}
+        text2="%"
+      />
+    </div>
+  );
+};
+
+const StatisticLine = (props) => {
+  return (
+    <div>
+      {props.text} {props.value} {props.text2}
+    </div>
+  );
+};
 
 export default App;
