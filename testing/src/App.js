@@ -56,41 +56,47 @@ const Statistics = (props) => {
   /// if no feedback render this:
   if (props.statsObject.objectSubmissions === 0) {
     return (
-      <div>
-        {console.log(
-          props.statsObject.good,
-          props.statsObject.neutral,
-          props.statsObject.bad
-        )}
-        <StatisticLine text="good" value={props.statsObject.good} />
-        <StatisticLine text="neutral" value={props.statsObject.neutral} />
-        <StatisticLine text="bad" value={props.statsObject.bad} />
-        no data given
-      </div>
+      <table>
+        <tbody>
+          {console.log(
+            props.statsObject.good,
+            props.statsObject.neutral,
+            props.statsObject.bad
+          )}
+          <StatisticLine text="good" value={props.statsObject.good} />
+          <StatisticLine text="neutral" value={props.statsObject.neutral} />
+          <StatisticLine text="bad" value={props.statsObject.bad} />
+          no feedback
+        </tbody>
+      </table>
     );
   } //else
   return (
-    <div>
-      {console.log("in else statement")}
-      <StatisticLine text="good" value={props.statsObject.good} />
-      <StatisticLine text="neutral" value={props.statsObject.neutral} />
-      <StatisticLine text="bad" value={props.statsObject.bad} />
-      <StatisticLine text="all" value={props.statsObject.objectSubmissions} />
-      <StatisticLine text="average" value={props.statsObject.objectAverage} />
-      <StatisticLine
-        text="positive"
-        value={props.statsObject.objectPercentage}
-        text2="%"
-      />
-    </div>
+    <table>
+      <tbody>
+        {console.log("in else statement")}
+        <StatisticLine text="good" value={props.statsObject.good} />
+        <StatisticLine text="neutral" value={props.statsObject.neutral} />
+        <StatisticLine text="bad" value={props.statsObject.bad} />
+        <StatisticLine text="all" value={props.statsObject.objectSubmissions} />
+        <StatisticLine text="average" value={props.statsObject.objectAverage} />
+        <StatisticLine
+          text="positive"
+          value={props.statsObject.objectPercentage}
+          text2="%"
+        />
+      </tbody>
+    </table>
   );
 };
 
 const StatisticLine = (props) => {
   return (
-    <div>
-      {props.text} {props.value} {props.text2}
-    </div>
+    <tr>
+      <td>
+        {props.text} {props.value} {props.text2}
+      </td>
+    </tr>
   );
 };
 
