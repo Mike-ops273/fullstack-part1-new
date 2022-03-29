@@ -10,29 +10,49 @@ const App = () => {
     "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients",
   ];
-
   const [selected, setSelected] = useState(0);
 
-  function selectRandom() {
-    setSelected(Math.floor(Math.random() * anecdotes.length));
-    console.log(anecdotes.length);
+  const pointsArray = new Array(anecdotes.length).fill(0);
+  //const testArray = [1, 2, 3, 4, 5, 6, 7];
+  const [votes, setVote] = useState(pointsArray);
+
+  function generateRandomNumber() {
+    const randomNumber = Math.floor(Math.random() * anecdotes.length);
+    setSelected(randomNumber);
   }
+
+  const generateVote = () => {
+    //setVote(votes[selected] + 1);
+    //console.log(votes[selected]);
+    const copyVotes = [...votes];
+    copyVotes[selected] = copyVotes[selected] + 1;
+    console.log(copyVotes);
+    setVote(copyVotes);
+  };
 
   return (
     <div>
-      <h1>anecdotes</h1>
-      <p>{anecdotes[selected]}</p>
-      <Button handleClick={() => selectRandom()} />
+      {anecdotes[selected]}
+      <br />
+      <p>has {votes[selected]} votes</p>
+      <ButtonAnecdote handleClick={() => generateRandomNumber()} />
+      <ButtonVote handleClick={() => generateVote()} />
     </div>
   );
 };
 
-//button component
-
-const Button = (props) => {
+const ButtonAnecdote = (props) => {
   return (
     <div>
-      <button onClick={props.handleClick}>anecdote</button>
+      <button onClick={props.handleClick}>next anecdote</button>
+      <p></p>
+    </div>
+  );
+};
+const ButtonVote = (props) => {
+  return (
+    <div>
+      <button onClick={props.handleClick}>vote</button>
     </div>
   );
 };
